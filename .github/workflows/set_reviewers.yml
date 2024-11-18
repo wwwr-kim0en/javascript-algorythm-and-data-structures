@@ -1,24 +1,43 @@
-name: Set reviewers
+name: Auto Assign Reviewers
 
 on:
   pull_request:
+    types: [opened, ready_for_review]
+
+permissions:
+  pull-requests: write # PR 관련 권한 추가
 
 jobs:
-  set-reviewers:
-    name: Set reviewers
+  assign-reviewers:
     runs-on: ubuntu-latest
-    timeout-minutes: 1
     steps:
-      - name: Set reviewers
-        run: |
-          actor="$"
-          reviewers=("USER_1" "USER_2" "USER_3")
-
-          reviewers=($(printf "%s\n" "${reviewers[@]}" | grep -v "$actor" | shuf -n 2))
-          reviewers=$(printf '%s\n' "${reviewers[@]}" | jq -R . | jq -s .)
-
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -H "Authorization: token $" \
-            -d "{ \"reviewers\": $reviewers }" \
-            "https://api.github.com/repos/$/pulls/$/requested_reviewers"
+      - name: Auto Assign Reviewers
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const reviewers = [
+              'wwwr-kim0en',
+              'kwonjounghun',
+              'nagyum',
+              'onblana',
+              'NonamedBread',
+              'JiHoon-0330',
+              'JANGSEYEONG'
+            ];
+            
+            // PR 작성자 제외
+            const prAuthor = context.payload.pull_request.user.login;
+            const availableReviewers = reviewers.filter(reviewer => reviewer !== prAuthor);
+            
+            // 랜덤하게 3명 선택
+            const shuffled = availableReviewers.sort(() => 0.5 - Math.random());
+            const selectedReviewers = shuffled.slice(0, 3);
+            
+            // 리뷰어 설정
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              reviewers: selectedReviewers
+            });
