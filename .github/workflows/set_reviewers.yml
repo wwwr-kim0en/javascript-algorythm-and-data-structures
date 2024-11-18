@@ -1,37 +1,39 @@
-# This is a basic workflow to help you get started with Actions
+name: Auto Assign Reviewers
 
-name: Set reviewers
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   pull_request:
-    branches: [ "main" ]
+    types: [opened, ready_for_review]
 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
- set-reviewers:
-    name: Set reviewers
-    # The type of runner that the job will run on
+  assign-reviewers:
     runs-on: ubuntu-latest
-    timeout-minutes: 1
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      name: Set reviewers
-        run: |
-          actor="$"
-          reviewers=(@wwwr-kim0en @kwonjounghun @nagyum @onblana @NonamedBread @JiHoon-0330 @JANGSEYEONG)
-
-          reviewers=($(printf "%s\n" "${reviewers[@]}" | grep -v "$actor" | shuf -n 2))
-          reviewers=$(printf '%s\n' "${reviewers[@]}" | jq -R . | jq -s .)
-
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -H "Authorization: token $" \
-            -d "{ \"reviewers\": $reviewers }" \
-            "https://api.github.com/repos/$/pulls/$/requested_reviewers"
-
-
-      
+      - name: Auto Assign Reviewers
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const reviewers = [
+              'wwwr-kim0en',
+              'kwonjounghun',
+              'nagyum',
+              'onblana',
+              'NonamedBread',
+              'JiHoon-0330',
+              'JANGSEYEONG'
+            ];
+            
+            // PR 작성자 제외
+            const prAuthor = context.payload.pull_request.user.login;
+            const availableReviewers = reviewers.filter(reviewer => reviewer !== prAuthor);
+            
+            // 랜덤하게 3명 선택
+            const shuffled = availableReviewers.sort(() => 0.5 - Math.random());
+            const selectedReviewers = shuffled.slice(0, 3);
+            
+            // 리뷰어 설정
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              reviewers: selectedReviewers
+            });
