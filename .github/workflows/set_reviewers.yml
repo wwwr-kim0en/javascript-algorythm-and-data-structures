@@ -14,7 +14,7 @@ jobs:
       - name: Auto Assign Reviewers
         uses: actions/github-script@v6
         with:
-          github-token: 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
+          github-token: ${{ secrets.TOKEN }}
           script: |
             const reviewers = [
               'wwwr-kim0en',
