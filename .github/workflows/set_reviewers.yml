@@ -14,7 +14,7 @@ jobs:
       - name: Auto Assign Reviewers
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: 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
           script: |
             const reviewers = [
               'wwwr-kim0en',
@@ -25,15 +25,15 @@ jobs:
               'JiHoon-0330',
               'JANGSEYEONG'
             ];
-            
+
             // PR 작성자 제외
             const prAuthor = context.payload.pull_request.user.login;
             const availableReviewers = reviewers.filter(reviewer => reviewer !== prAuthor);
-            
+
             // 랜덤하게 3명 선택
             const shuffled = availableReviewers.sort(() => 0.5 - Math.random());
             const selectedReviewers = shuffled.slice(0, 3);
-            
+
             // 리뷰어 설정
             await github.rest.pulls.requestReviewers({
               owner: context.repo.owner,
