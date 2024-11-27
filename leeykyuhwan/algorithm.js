@@ -6,33 +6,27 @@ const rl = require("readline").createInterface({
 const input = [];
 
 rl.on("line", (line) => {
-  line.split(",").map((el) =>  input.push(el));
+    input.push(line);
 }).on("close", () => {
-  const [n, m] = input;
-  const arr = n.split(" ").map((el) => parseInt(el));
-  const num = parseInt(m);
-  
-  console.log(minSubArrayLen(arr, num));
+  console.log(findLongestSubstring(input[0]));
     
 });
 
-function minSubArrayLen(arr, target) {
+function findLongestSubstring(str) {
   let start = 0;
-  let end = 0;
-  let sum = 0;
-  let minLength = Infinity;
+  let maxLength = 0;
+  let seen = {};
 
-  while (end < arr.length) {
-    sum += arr[end];
+  if(!str || str.length === 0) return 0;
 
-    while (sum >= target) {
-      minLength = Math.min(minLength, end - start + 1);
-      sum -= arr[start];
-      start++;
+  for (let end = 0; end < str.length; end++) {
+    let char = str[end];
+    if (seen[char] !== undefined && seen[char] >= start) {
+      start = seen[char] + 1;
     }
-
-    end++;
+    seen[char] = end;
+    maxLength = Math.max(maxLength, end - start + 1);
   }
 
-  return minLength === Infinity ? 0 : minLength;
+  return maxLength;
 }
