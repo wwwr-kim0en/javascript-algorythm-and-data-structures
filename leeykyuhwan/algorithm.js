@@ -12,28 +12,27 @@ rl.on("line", (line) => {
   const arr = n.split(" ").map((el) => parseInt(el));
   const num = parseInt(m);
   
-  console.log(maxSubarraySum(arr, num));
+  console.log(minSubArrayLen(arr, num));
     
 });
 
-function maxSubarraySum(arr, num) {
-  if (arr.length < num) return null;
+function minSubArrayLen(arr, target) {
+  let start = 0;
+  let end = 0;
+  let sum = 0;
+  let minLength = Infinity;
 
-  let maxSum = 0;
-  let tempSum = 0;
+  while (end < arr.length) {
+    sum += arr[end];
 
-  // 첫 번째 부분 배열의 합 계산
-  for (let i = 0; i < num; i++) {
-      maxSum += arr[i];
+    while (sum >= target) {
+      minLength = Math.min(minLength, end - start + 1);
+      sum -= arr[start];
+      start++;
+    }
+
+    end++;
   }
 
-  tempSum = maxSum;
-
-  // 슬라이딩 윈도우 기법 사용
-  for (let i = num; i < arr.length; i++) {
-      tempSum = tempSum - arr[i - num] + arr[i];
-      maxSum = Math.max(maxSum, tempSum);
-  }
-
-  return maxSum;
+  return minLength === Infinity ? 0 : minLength;
 }
