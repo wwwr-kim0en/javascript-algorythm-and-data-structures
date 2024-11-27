@@ -5,14 +5,14 @@ Frequency Counter - validAnagram
 
 | 입력 | 출력 |
 | --- | --- |
-| `'' '' | `true` |
-| `'aaz' 'zza' | `false` |
-| `'anagram' 'nagaram' | `true` |
-| `'rat' 'car' | `false` |
-| `'awesome' 'awesom' | `false` |
-| `'amanaplanacanalpanama' 'acanalmanplanpamana' | `false` |
-| `'qwerty' 'qeywrt' | `true` |
-| `'texttwisttime' 'timetwisttext' | `true` |
+| '' '' | true |
+| 'aaz' 'zza' | false |
+| 'anagram' 'nagaram' | true |
+| 'rat' 'car' | false |
+| 'awesome' 'awesom' | false |
+| 'amanaplanacanalpanama' 'acanalmanplanpamana' | false |
+| 'qwerty' 'qeywrt' | true |
+| 'texttwisttime' 'timetwisttext' | true |
 
 
 # 문제풀이
