@@ -1,2 +1,5 @@
-# javascript-algorythm-and-data-structures
-자바스크립트 알고리즘 &amp; 자료구조 스터디
+# algorithm.js
+
+이 파일은 Competitive Programming Helper (CPH) 확장을 사용하여 문제를 해결하기 위해 추가된 파일입니다.
+
+
