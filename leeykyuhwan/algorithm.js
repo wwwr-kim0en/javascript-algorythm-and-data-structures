@@ -6,23 +6,33 @@ const rl = require("readline").createInterface({
 const input = [];
 
 rl.on("line", (line) => {
-  line.split(",").map((el) => input.push(el.trim()));
+  line.split(",").map((el) =>  input.push(el));
 }).on("close", () => {
-  console.log(areThereDuplicates(...input));
+  const [n, m] = input;
+  const arr = n.split(" ").map(Number);
+  const num = parseFloat(m);
+  console.log(averagePair(arr, num));
     
 });
 
-function areThereDuplicates(...args) {
-  // 정렬 (O(n log n))
-  args.sort();
+const averagePair = (arr, target) => {
+  if (arr.length === 0) return false; // 빈 배열 처리
 
-  let i = 0;
-  for (let j = 1; j < args.length; j++) {
-      if (args[i] === args[j]) {
-          return true; // 중복 발견
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+      const avg = (arr[left] + arr[right]) / 2;
+
+      if (avg === target) {
+          return true; // 목표 평균과 일치하는 쌍 발견
+      } else if (avg < target) {
+          left++; // 평균이 작으면 왼쪽 포인터 이동
+      } else {
+          right--; // 평균이 크면 오른쪽 포인터 이동
       }
-      i++;
   }
 
-  return false; // 중복 없음
+  return false; // 쌍을 찾지 못한 경우
 }
+
