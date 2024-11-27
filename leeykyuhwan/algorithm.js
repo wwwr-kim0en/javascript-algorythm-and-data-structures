@@ -9,30 +9,24 @@ rl.on("line", (line) => {
   line.split(",").map((el) =>  input.push(el));
 }).on("close", () => {
   const [n, m] = input;
-  const arr = n.split(" ").map(Number);
-  const num = parseFloat(m);
-  console.log(averagePair(arr, num));
+  
+  console.log(isSubsequence(n, m));
     
 });
 
-const averagePair = (arr, target) => {
-  if (arr.length === 0) return false; // 빈 배열 처리
+function isSubsequence(str1, str2) {
+  let i = 0;
+  let j = 0;
 
-  let left = 0;
-  let right = arr.length - 1;
-
-  while (left < right) {
-      const avg = (arr[left] + arr[right]) / 2;
-
-      if (avg === target) {
-          return true; // 목표 평균과 일치하는 쌍 발견
-      } else if (avg < target) {
-          left++; // 평균이 작으면 왼쪽 포인터 이동
-      } else {
-          right--; // 평균이 크면 오른쪽 포인터 이동
+  while (j < str2.length) {
+      if (str1[i] === str2[j]) {
+          i++;
       }
+      if (i === str1.length) {
+          return true;
+      }
+      j++;
   }
 
-  return false; // 쌍을 찾지 못한 경우
+  return false;
 }
-
