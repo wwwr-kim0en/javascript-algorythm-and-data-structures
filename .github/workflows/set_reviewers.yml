@@ -6,6 +6,7 @@ on:
 
 permissions:
   pull-requests: write # PR 관련 권한 추가
+  contents: read # 코드 내용 읽기 권한 추가
 
 jobs:
   assign-reviewers:
