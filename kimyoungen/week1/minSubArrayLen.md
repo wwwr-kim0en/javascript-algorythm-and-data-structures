@@ -19,5 +19,8 @@ minSubArrayLen([1,4,16,22,5,7,8,9,10],95) // 0
 
 ### 내 풀이
 ```javascript
-
+function minSubArrayLen(array,number){
+    
+    
+}
 ```

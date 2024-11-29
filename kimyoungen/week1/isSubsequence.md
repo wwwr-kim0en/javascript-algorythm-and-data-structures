@@ -47,13 +47,14 @@ function isSubsequence(str1,str2){
 }
 ```
 
-### Claude 풆이1
+### Claude 풀이1
 - 시간복잡도: O(N + M)
 - 공간복잡도: O(1)
 
-str1의 각 문자를 순서대로 str2에서 찾습니다. <br/>
-모든 문자가 순서대로 발견되면 true. <br/>
-str2를 완전히 순회했는데 모든 문자를 찾지 못하면 false.
+1. str1의 각 문자를 순서대로 str2에서 찾습니다. 
+2. 모든 문자가 순서대로 발견되면 true. 
+3. str2를 완전히 순회했는데 모든 문자를 찾지 못하면 false.
+
 ```javascript
 function isSubsequence(str1, str2) {
     let i = 0;  // str1의 인덱스
