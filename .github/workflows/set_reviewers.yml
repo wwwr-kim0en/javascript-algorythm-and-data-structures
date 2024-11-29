@@ -24,11 +24,10 @@ jobs:
             const reviewers = [
               'wwwr-kim0en',
               'kwonjounghun',
-              'nagyum',
-              'onblana',
               'NonamedBread',
               'JiHoon-0330',
-              'JANGSEYEONG'
+              'JANGSEYEONG',
+              'southppp22'
             ];
 
             // PR 작성자 제외
