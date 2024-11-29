@@ -1,4 +1,5 @@
 # 빈도수 세기 
+
 ## Same Frequency
 
 ### 문제
