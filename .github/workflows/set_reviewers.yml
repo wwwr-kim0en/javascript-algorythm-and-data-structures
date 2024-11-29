@@ -13,11 +13,8 @@ jobs:
   assign-reviewers:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Auto Assign Reviewers
-        uses: actions/github-script@v6
+        uses: actions/github-script@latest
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
