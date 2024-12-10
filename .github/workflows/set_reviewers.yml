@@ -3,7 +3,7 @@ name: Auto Assign Reviewers
 on:
   pull_request:
     branches:
-      - "develop"
+      - 'develop'
 
 permissions:
   pull-requests: write # PR 관련 권한 추가
@@ -22,8 +22,6 @@ jobs:
               'wwwr-kim0en',
               'kwonjounghun',
               'NonamedBread',
-              'JiHoon-0330',
-              'JANGSEYEONG',
               'southppp22'
             ];
 
