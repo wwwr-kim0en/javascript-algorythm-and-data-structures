@@ -15,19 +15,24 @@ swap start and the smallest(min)
  - Repeat this with the next element until the array is sorted.
 
 ```typescript
-function selectionSort(arr:number[]){
-		let smallestIndex = 0;
-		
-		for(let i = smallestIndex; i < arr.length ; i++){
-				
-				if(arr[i] > arr[i+1]){
-					if(i === arr.length-2){
-							[arr[smallestIndex],arr[i+1]] = [arr[i+1], arr[smallestIndex]]
-						}
-					smallestIndex = i+1;
-                }
-				
+function selectionSort(arr:number[]):number[]{
+	 for (let i = 0; i < arr.length - 1; i++) {
+        let minIndex = i;
+        
+        // Find the minimum element in the unsorted portion
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
         }
+        
+        // Swap the found minimum element with the first element of unsorted portion
+        if (minIndex !== i) {
+            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+        }
+    }
+    
+    return arr;
 }
 
 ```
